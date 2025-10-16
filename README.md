@@ -502,37 +502,6 @@ docs/
 
 ---
 
-## Why This Project Stands Out
-
-Most fraud detection notebooks treat this as a binary classification exercise and stop at ROC-AUC. This project goes further:
-
-1. **Business framing over metric optimisation** — threshold selection is driven by a cost function, not by F1.
-2. **Production depth** — the pipeline ends in a containerised API service and a live BI dashboard, not just a notebook.
-3. **Rigorous imbalance handling** — three strategies are systematically benchmarked using the correct evaluation metric (PR-AUC).
-4. **Explainability as a first-class concern** — SHAP outputs are not an afterthought; they are exported as dashboard-ready artefacts.
-5. **Modular codebase** — the `src/` directory decouples pipeline logic from the notebook, making components independently testable and reusable.
-
----
-
-## Engineering Takeaways
-
-- **PR-AUC is non-negotiable for imbalanced problems.** ROC-AUC can read 0.98 on a model that never predicts fraud. PR-AUC tells the real story.
-- **Threshold selection is a business decision, not a model decision.** Baking the optimal threshold into the model eliminates a class of production bugs where inference and evaluation use different cut-offs.
-- **Stacking works because base models fail differently.** LightGBM and Random Forest have complementary error profiles; the meta-learner learns which to trust under which conditions.
-- **Feature engineering on anonymised data is still useful.** `log_amount` and `hour_of_day` added meaningful signal even when V1–V28 are opaque PCA components.
-- **SHAP on the base model, not the ensemble.** TreeExplainer requires access to the tree structure. Applying SHAP to the meta-learner's inputs (probabilities) would explain nothing about the raw feature space.
-
----
-
-## Portfolio Summary
-
-> *End-to-end fraud detection system handling a 0.17% fraud prevalence rate using a stacked LightGBM + Random Forest ensemble (PR-AUC 0.8491, Recall 89.8%). Built with systematic imbalance strategy benchmarking, cost-sensitive threshold optimisation, SHAP explainability, a FastAPI inference service, Docker deployment, and a live Power BI monitoring dashboard — designed to operate at production quality from data ingestion to business reporting.*
-
-**LinkedIn one-liner:**
-> Built a production-grade credit card fraud detection system — stacked ensemble, 89.8% recall, cost-optimised threshold at 0.99, FastAPI + Docker deployment, Power BI dashboard, and full SHAP explainability. End-to-end, no shortcuts.
-
----
-
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
@@ -540,17 +509,3 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 The dataset (`creditcard.csv`) is sourced from [Kaggle — ULB Machine Learning Group](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) and is subject to its own terms of use. It is excluded from this repository via `.gitignore`.
 
 ---
-
-## Recommended Image Rename Mapping
-
-The following table maps the original screenshot filenames to the semantically meaningful names used throughout this README. Apply these renames in your repository for clarity:
-
-| Original Filename | Renamed To | Visual Content |
-|---|---|---|
-| `docs/Images/Screenshot 2026-06-10 155117.png` | `docs/images/powerbi-fraud-detection-dashboard-overview.png` | Full Power BI dashboard with KPI cards, fraud-by-hour, threshold sweep, merchant category, and top-risk transaction table |
-| `docs/Images/Screenshot 2026-06-10 155203.png` | `docs/images/fraud-transactions-by-hour-of-day.png` | Line chart of fraud case count vs. hour of day |
-| `docs/Images/Screenshot 2026-06-10 155324.png` | `docs/images/fraud-amount-by-merchant-category.png` | Horizontal bar chart of fraudulent transaction value by merchant category |
-| `docs/Images/Screenshot 2026-06-10 155354.png` | `docs/images/threshold-precision-recall-f1-analysis.png` | Line chart showing precision, recall, and F1 score across decision thresholds |
-| `docs/Images/Screenshot 2026-06-10 155442.png` | `docs/images/top-highest-risk-transactions-table.png` | Tabular view of highest-risk flagged transactions with fraud probabilities |
-| `docs/pr_curve_annotated.png` | `docs/images/pr-curve-business-cost-threshold-analysis.png` | Dual panel: annotated PR curve (PR-AUC=0.8491) + business cost vs. threshold |
-| `docs/shap_importance.png` | `docs/images/shap-feature-importance-lgbm.png` | Horizontal bar chart of mean absolute SHAP values per feature (LightGBM) |
