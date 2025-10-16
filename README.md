@@ -13,7 +13,7 @@
 
 ## Project Overview
 
-This project implements a **production-grade fraud detection pipeline** on the canonical Kaggle Credit Card Fraud dataset. The system is engineered from raw data ingestion through to a deployable FastAPI inference service and a Power BI monitoring dashboard,covering every stage a real ML system requires in a financial context.
+This project implements a **production-grade fraud detection pipeline** on the canonical Kaggle Credit Card Fraud dataset. The system is engineered from raw data ingestion through to a deployable FastAPI inference service and a Power BI monitoring dashboard, covering every stage a real ML system requires in a financial context.
 
 The core challenge is detecting fraud in a dataset where **fewer than 0.17% of transactions are fraudulent** — a regime where standard accuracy metrics are actively misleading and where the cost of a missed fraud far exceeds the cost of a false alert. Every design decision in this project reflects that operational reality.
 
